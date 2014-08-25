@@ -17,6 +17,7 @@ public class GameSetup : MonoBehaviour
 				player = GameObject.Find ("Player").GetComponent<Player> ();
 				createRandomEnemies ();
 				InvokeRepeating ("createRandomEnemies", 3f, Random.Range (5, 15));
+				
 		}
 
 		// Update is called once per frame
@@ -50,12 +51,15 @@ public class GameSetup : MonoBehaviour
 
 		void createRandomEnemies ()
 		{
-				for (int i = 0; i <Random.Range(3,8); i++) {
-						Vector3 pos = new Vector3 (-6 + i, 5, 0) * 1;
-						GameObject go = Instantiate (Resources.Load ("BasicEnemy"), pos, Quaternion.identity) as GameObject;
-						Enemy enemy = go.GetComponent<Enemy> ();
-						enemy.enemyName += "_" + i;
+				if (!isGameFinished) {
+						for (int i = 0; i <Random.Range(3,8); i++) {
+								Vector3 pos = new Vector3 (-6 + i, 5, 0) * 1;
+								GameObject go = Instantiate (Resources.Load ("BasicEnemy"), pos, Quaternion.identity) as GameObject;
+								Enemy enemy = go.GetComponent<Enemy> ();
+								enemy.enemyName += "_" + i;
+						}
 				}
+			
 		}
 
 		void setupKeys ()

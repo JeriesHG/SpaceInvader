@@ -19,7 +19,7 @@ public class Enemy : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		InvokeRepeating ("EnemyShoot", 1f, Random.Range (0.2f, maxShotInterval));
+		InvokeRepeating ("EnemyShoot", 1f, Random.Range (0.5f, maxShotInterval));
 	}
 	
 	// Update is called once per frame
@@ -48,7 +48,7 @@ public class Enemy : MonoBehaviour {
 			moveDirection = -1f;
 			break;
 		case "BottomWall":
-			Destroy(this);
+			Destroy(gameObject);
 			break;
 		}
 	}

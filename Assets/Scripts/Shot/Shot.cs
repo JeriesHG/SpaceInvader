@@ -41,7 +41,6 @@ public class Shot : MonoBehaviour {
 			break;
 		}
 		if(entity.gameObject.tag.ToLower().Contains("wall")){Destroy(gameObject);}
-//		Destroy (gameObject);
 	}
 
 

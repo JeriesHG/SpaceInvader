@@ -14,6 +14,7 @@ public class Player : MonoBehaviour
 		public KeyCode moveLeft;
 		public KeyCode moveUp;
 		public KeyCode moveDown;
+		public KeyCode sprint;
 		public KeyCode shoot;
 		public float startingXPosition = 0;
 		public float startingYPosition = -5;
