@@ -53,6 +53,7 @@
      <Compile Include="Assets\Scripts\Player\PlayerMovement.cs" />
      <Compile Include="Assets\Scripts\Player\PlayerScore.cs" />
      <Compile Include="Assets\Scripts\Player\PlayerShoot.cs" />
+     <Compile Include="Assets\Scripts\Player\PlayerTouchControl.cs" />
      <Compile Include="Assets\Scripts\Shot\Shot.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

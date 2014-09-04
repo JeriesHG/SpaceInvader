@@ -38,6 +38,7 @@
 -define:ENABLE_PROFILER
 -define:UNITY_EDITOR
 -define:UNITY_EDITOR_OSX
+'Assets/PlayerTouchControl.cs'
 'Assets/Scripts/Enemies/Enemy.cs'
 'Assets/Scripts/GameSetup.cs'
 'Assets/Scripts/Player/Player.cs'

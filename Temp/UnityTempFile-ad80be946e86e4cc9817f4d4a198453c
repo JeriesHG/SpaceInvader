@@ -45,4 +45,5 @@
 'Assets/Scripts/Player/PlayerMovement.cs'
 'Assets/Scripts/Player/PlayerScore.cs'
 'Assets/Scripts/Player/PlayerShoot.cs'
+'Assets/Scripts/Player/TouchControl.cs'
 'Assets/Scripts/Shot/Shot.cs'
