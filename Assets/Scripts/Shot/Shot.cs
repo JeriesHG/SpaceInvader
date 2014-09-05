@@ -24,12 +24,11 @@ public class Shot : MonoBehaviour
 		{
 				switch (entity.gameObject.tag) {
 				case "Shot":
-						Destroy (gameObject);
 						break;
 				case "Enemy":
 						if (!isEnemyShot) {
 								Enemy enemy = entity.gameObject.GetComponent<Enemy> ();
-								if (enemy.Damaged ()) {
+								if (enemy.Damaged () && GameObject.FindGameObjectWithTag ("Player")) {
 										GameObject.FindGameObjectWithTag ("Player").GetComponent<Player> ().score += enemy.pointsWorth;
 
 								}
@@ -41,7 +40,7 @@ public class Shot : MonoBehaviour
 						if (isEnemyShot) {
 
 								Player player = entity.gameObject.GetComponent<Player> ();
-								player.TookDamage ();
+								player.TookDamage (damage);
 								Destroy (gameObject);
 						}
 						break;

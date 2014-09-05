@@ -1,8 +1,8 @@
 fileFormatVersion: 2
-guid: cdd816b8c96e94f6199343d9cc3220c4
+guid: 7bb332ef4adf545a7aaac044611c9fe9
 TextureImporter:
   fileIDToRecycleName:
-    21300000: bullet
+    21300000: touchButton
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0

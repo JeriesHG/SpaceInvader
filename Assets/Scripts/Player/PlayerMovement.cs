@@ -8,7 +8,7 @@ public class PlayerMovement : MonoBehaviour
 	
 		void Start ()
 		{
-				player = GameObject.FindGameObjectWithTag ("Player").GetComponent<Player> ();
+				player = GameObject.Find ("Player").GetComponent<Player> () as Player;
 		}
 
 		void FixedUpdate ()

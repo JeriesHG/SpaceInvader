@@ -9,6 +9,7 @@ public class GameSetup : MonoBehaviour
 		public BoxCollider2D bottomWall;
 		public BoxCollider2D leftWall;
 		public BoxCollider2D rightWall;
+
 		Player player;
 
 		void Start ()
@@ -22,6 +23,7 @@ public class GameSetup : MonoBehaviour
 				setBoundaries ();
 				setupKeys ();
 		}
+
 
 		void setBoundaries ()
 		{
@@ -38,11 +40,12 @@ public class GameSetup : MonoBehaviour
 				rightWall.size = new Vector2 (1f, mainCam.ScreenToWorldPoint (new Vector3 (0f, Screen.height * 2f, 0f)).y);
 				rightWall.center = new Vector2 (mainCam.ScreenToWorldPoint (new Vector3 (Screen.width, 0f, 0f)).x + 0.5f, 0f);
 		}
-
+	
 		void setupKeys ()
 		{
 				if (Input.GetKey (KeyCode.Escape)) {
 						Application.Quit ();
 				}
 		}
+
 }
