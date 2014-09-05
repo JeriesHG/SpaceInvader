@@ -28,8 +28,8 @@ public class Shot : MonoBehaviour
 				case "Enemy":
 						if (!isEnemyShot) {
 								Enemy enemy = entity.gameObject.GetComponent<Enemy> ();
-								if (enemy.Damaged () && GameObject.FindGameObjectWithTag ("Player")) {
-										GameObject.FindGameObjectWithTag ("Player").GetComponent<Player> ().score += enemy.pointsWorth;
+								if (enemy.Damaged () && GameObject.Find ("Player")) {
+										GameObject.Find ("Player").GetComponent<Player> ().score += enemy.pointsWorth;
 
 								}
 								Destroy (gameObject);
