@@ -19,7 +19,7 @@ public class Enemy : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		InvokeRepeating ("EnemyShoot", 1f, Random.Range (0.5f, maxShotInterval));
+		InvokeRepeating ("EnemyShoot", Random.Range(0f,1f), Random.Range (0.5f, maxShotInterval));
 	}
 	
 	// Update is called once per frame
@@ -39,7 +39,9 @@ public class Enemy : MonoBehaviour {
 		}
 		switch (Entity.gameObject.tag) {
 		case "Player":
-			Destroy(Entity.gameObject);
+			Player player = Entity.gameObject.GetComponent<Player> ();
+			player.TookDamage ();
+			Damaged();
 			break;
 		case "LeftWall":
 			moveDirection = 1f;

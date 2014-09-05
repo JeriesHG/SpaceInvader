@@ -18,17 +18,17 @@ public class Player : MonoBehaviour
 		public KeyCode shoot;
 		public float startingXPosition = 0;
 		public float startingYPosition = -5;
-
 		public int score = 0;
 
 		public void TookDamage ()
 		{
-				if (hitpoints > 0) {
+				if (hitpoints > 1) {
 						this.transform.position = new Vector3 (startingXPosition, startingYPosition, 0);
 						hitpoints--;
-						score-=8;
+						score -= 8;
 				} else {
-						Destroy(gameObject);
+						GameObject.FindGameObjectWithTag ("GameManager").gameObject.GetComponent<GameManager> ().playerCurrentScore = score;
+						Destroy (gameObject);
 				}
 		}
 }
