@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Player : MonoBehaviour
 {
@@ -7,7 +8,7 @@ public class Player : MonoBehaviour
 		//PlayerHandling
 		public float speed = 4;
 		public int hitpoints = 3;
-		public GameObject[] shots;
+		public List<GameObject> weapons;
 
 		//Player Controls
 		public KeyCode moveRight = KeyCode.RightArrow;
@@ -16,14 +17,22 @@ public class Player : MonoBehaviour
 		public KeyCode moveDown = KeyCode.DownArrow;
 		public KeyCode sprint = KeyCode.LeftShift;
 		public KeyCode shoot = KeyCode.Space;
+		public KeyCode changeWeapon = KeyCode.E;
 		public float startingXPosition = 0;
 		public float startingYPosition = -5;
 		public int score = 0;
 		bool playerInvulnerability;
 
+		[HideInInspector]
+		public int
+				selectedAmmo = 0;
 
-		public Player ()
+
+		void Awake ()
 		{
+				weapons = new List <GameObject> ();
+				weapons.Add (Resources.Load ("Ammo/Ammo_default") as GameObject);
+				weapons.Add (Resources.Load ("Ammo/Ammo_BasicShot1") as GameObject);
 		}
 
 		public void TookDamage (int damage)
@@ -34,7 +43,7 @@ public class Player : MonoBehaviour
 				
 								hitpoints--;
 								score -= damage;
-								GameObject.FindGameObjectWithTag ("GameManager").gameObject.GetComponent<GameManager> ().playerCurrentScore = score;
+								updateScore ();
 								StartCoroutine (Die (false));
 						} else {
 								StartCoroutine (Die (true));
@@ -42,6 +51,11 @@ public class Player : MonoBehaviour
 				}
 
 				
+		}
+
+		public void updateScore ()
+		{
+				GameObject.FindGameObjectWithTag ("GameManager").gameObject.GetComponent<GameManager> ().playerCurrentScore = score;
 		}
 
 

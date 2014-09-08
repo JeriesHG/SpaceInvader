@@ -14,12 +14,6 @@ public class Shot : MonoBehaviour
 				Destroy (gameObject, 30);
 		}
 	
-		// Update is called once per frame
-		void Update ()
-		{
-	
-		}
-
 		void OnTriggerEnter2D (Collider2D entity)
 		{
 				switch (entity.gameObject.tag) {
@@ -30,7 +24,7 @@ public class Shot : MonoBehaviour
 								Enemy enemy = entity.gameObject.GetComponent<Enemy> ();
 								if (enemy.Damaged () && GameObject.Find ("Player")) {
 										GameObject.Find ("Player").GetComponent<Player> ().score += enemy.pointsWorth;
-
+										GameObject.Find ("Player").GetComponent<Player> ().updateScore ();
 								}
 								Destroy (gameObject);
 						}

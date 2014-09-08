@@ -52,9 +52,9 @@
      <Compile Include="Assets\Scripts\Player\Player.cs" />
      <Compile Include="Assets\Scripts\Player\PlayerAnimationController.cs" />
      <Compile Include="Assets\Scripts\Player\PlayerMovement.cs" />
-     <Compile Include="Assets\Scripts\Player\PlayerScore.cs" />
      <Compile Include="Assets\Scripts\Player\PlayerShoot.cs" />
      <Compile Include="Assets\Scripts\Player\PlayerTouchControl.cs" />
+     <Compile Include="Assets\Scripts\Shot\Ammo.cs" />
      <Compile Include="Assets\Scripts\Shot\Shot.cs" />
      <Compile Include="Assets\Scripts\Touch\TouchButtonController.cs" />
   </ItemGroup>
