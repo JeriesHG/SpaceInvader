@@ -7,7 +7,7 @@ public class Player : MonoBehaviour
 
 		//PlayerHandling
 		public float speed = 4;
-		public int hitpoints = 3;
+		public double hitpoints = 3;
 		public List<GameObject> weapons;
 
 		//Player Controls
@@ -25,24 +25,23 @@ public class Player : MonoBehaviour
 
 		[HideInInspector]
 		public int
-				selectedAmmo = 0;
+				selectedWeapon = 0;
 
 
 		void Awake ()
 		{
 				weapons = new List <GameObject> ();
-				weapons.Add (Resources.Load ("Ammo/Ammo_default") as GameObject);
-				weapons.Add (Resources.Load ("Ammo/Ammo_BasicShot1") as GameObject);
+				weapons.Add ((GameObject)Instantiate (Resources.Load ("Ammo/Ammo_default") as GameObject));
+				weapons.Add ((GameObject)Instantiate (Resources.Load ("Ammo/Ammo_BasicShot1") as GameObject));
 		}
 
-		public void TookDamage (int damage)
+		public void TookDamage (double damage)
 		{
 				if (!playerInvulnerability) {
 						playerInvulnerability = true;
 						if (hitpoints > 1) {
-				
-								hitpoints--;
-								score -= damage;
+								hitpoints -= 1;
+								score -= (int)damage;
 								updateScore ();
 								StartCoroutine (Die (false));
 						} else {

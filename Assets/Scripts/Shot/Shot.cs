@@ -4,7 +4,7 @@ using System.Collections;
 public class Shot : MonoBehaviour
 {
 
-		public int damage = 1;
+		public double damage = 1;
 		public int shotSpeed = 4;
 		public bool isEnemyShot = false;
 
@@ -22,7 +22,7 @@ public class Shot : MonoBehaviour
 				case "Enemy":
 						if (!isEnemyShot) {
 								Enemy enemy = entity.gameObject.GetComponent<Enemy> ();
-								if (enemy.Damaged () && GameObject.Find ("Player")) {
+								if (enemy.Damaged (damage) && GameObject.Find ("Player")) {
 										GameObject.Find ("Player").GetComponent<Player> ().score += enemy.pointsWorth;
 										GameObject.Find ("Player").GetComponent<Player> ().updateScore ();
 								}

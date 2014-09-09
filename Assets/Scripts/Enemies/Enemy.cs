@@ -5,7 +5,7 @@ public class Enemy : MonoBehaviour
 {
 
 		public string enemyName = "";
-		public float hitpoints = 5f;
+		public double hitpoints = 5f;
 		public int pointsWorth = 0;
 		public float moveSpeed = 2f;
 		public GameObject[] shots;
@@ -44,7 +44,7 @@ public class Enemy : MonoBehaviour
 				case "Player":
 						Player player = Entity.gameObject.GetComponent<Player> ();
 						player.TookDamage (1);
-						Damaged ();
+						Damaged (1);
 						break;
 				case "LeftWall":
 						moveDirection = 1f;
@@ -58,15 +58,14 @@ public class Enemy : MonoBehaviour
 				}
 		}
 
-		public bool Damaged ()
+		public bool Damaged (double damage)
 		{
-				if (hitpoints > 0) {
-						hitpoints--;
-						return false;
-				} else {
+				hitpoints -= damage;
+				if (hitpoints < 1) {
 						Destroy (gameObject);
 						return true;
 				}
+				return false;
 		}
 
 		void EnemyShoot ()

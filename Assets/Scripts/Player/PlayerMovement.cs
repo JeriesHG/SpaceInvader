@@ -14,7 +14,7 @@ public class PlayerMovement : MonoBehaviour
 		void FixedUpdate ()
 		{
 				Move ();
-//				changeWeapon ();
+				changeWeapon ();
 		}
 	
 		void Move ()
@@ -32,16 +32,17 @@ public class PlayerMovement : MonoBehaviour
 
 		}
 
-//		void changeWeapon ()
-//		{
-//				if (Input.GetKeyUp (player.changeWeapon)) {
-//						if (player.shots [(player.selectedAmmo + 1)] != null) {
-//								player.selectedAmmo += 1;
-//						} else {
-//								player.selectedAmmo = (player.selectedAmmo > 0) ? player.selectedAmmo -= 1 : 0;
-//						}
-//				}
-//		}
+		void changeWeapon ()
+		{
+				
+				if (Input.GetKeyUp (player.changeWeapon)) {
+						if (player.selectedWeapon + 1 < player.weapons.Count) {
+								player.selectedWeapon += 1;
+						} else {
+								player.selectedWeapon -= 1;
+						}
+				}
+		}
 
 
 }

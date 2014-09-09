@@ -14,17 +14,17 @@ public class PlayerShoot : MonoBehaviour
 		// Update is called once per frame
 		void Update ()
 		{
-				ShootBullet ();
+				executeShoot ();
 		}
 	
-		void ShootBullet ()
+		void executeShoot ()
 		{
 				if (Input.GetKeyDown (player.shoot) || Input.touchCount == 1) {
-						Ammo selectedAmmo = ((GameObject)player.weapons [player.selectedAmmo]).GetComponent<Ammo> ();
+						Ammo selectedAmmo = ((GameObject)player.weapons [player.selectedWeapon]).GetComponent<Ammo> ();
 						if (selectedAmmo.infinite || selectedAmmo.shotsLeft >= 1) {
 								Fire (selectedAmmo);
 						} else {
-								LookForAmmo ();
+								Fire (LookForAmmo ());
 						}
 
 				}
@@ -37,21 +37,25 @@ public class PlayerShoot : MonoBehaviour
 				Vector3 newVector = new Vector3 (player.transform.position.x, playerPosY);
 				Shot shot = (Shot)Instantiate (selectedAmmo.shot, newVector, Quaternion.identity);
 				shot.rigidbody2D.velocity = shot.shotSpeed * Vector3.up;
-				selectedAmmo.shotsLeft--;
+				if (!selectedAmmo.infinite) {
+						selectedAmmo.shotsLeft--;
+				}
+				
 		}
 
-		void LookForAmmo ()
+		public Ammo LookForAmmo ()
 		{
 				for (int i = 0; i<player.weapons.Count; i++) {
 						if (player.weapons [i]) {
 								Ammo curAmmo = player.weapons [i].GetComponent<Ammo> ();
-								if (curAmmo.shotsLeft >= 1) {
-										player.selectedAmmo = i;
-										Fire (curAmmo);
+								if (curAmmo.shotsLeft >= 1 || curAmmo.infinite) {
+										player.selectedWeapon = i;
+										return curAmmo;
 										break;
 								}
 						}
 				}
+				return null;
 		}
 
 
