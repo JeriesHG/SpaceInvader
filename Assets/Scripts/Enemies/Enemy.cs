@@ -10,7 +10,6 @@ public class Enemy : MonoBehaviour
 		public float moveSpeed = 2f;
 		public GameObject[] shots;
 		public int defaultAmmo = 0;
-		public float shotSpeed = 5;
 		public float startingXPosition = -6f;
 		public float startingYPosition = 5f;
 		public float maxShotInterval = 1f;
@@ -72,8 +71,8 @@ public class Enemy : MonoBehaviour
 		{
 				float playerPosY = gameObject.transform.position.y - 0.5f;
 				GameObject shot = (GameObject)Instantiate (gameObject.GetComponent<Enemy> ().shots [defaultAmmo], new Vector3 (gameObject.transform.position.x, playerPosY), Quaternion.identity);
-				Shot curShot = shot.GetComponent<Shot> ();
-				curShot.isEnemyShot = true;
-				shot.rigidbody2D.velocity = shotSpeed * Vector3.down;
+				Bullet bullet = shot.GetComponent<Bullet> ();
+				bullet.enemyBullet = true;
+				shot.rigidbody2D.velocity = bullet.bulletSpeed * Vector3.down;
 		}
 }

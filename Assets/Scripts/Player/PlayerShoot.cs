@@ -5,6 +5,7 @@ public class PlayerShoot : MonoBehaviour
 {
 
 		private Player player;
+		private float lastFire;
 
 		void Start ()
 		{
@@ -12,38 +13,51 @@ public class PlayerShoot : MonoBehaviour
 		}
 	
 		// Update is called once per frame
-		void Update ()
+		void FixedUpdate ()
 		{
 				executeShoot ();
 		}
 	
 		void executeShoot ()
 		{
-				if (Input.GetKeyDown (player.shoot) || Input.touchCount == 1) {
+				if (Input.GetKey (player.shoot) && Time.time > lastFire) {
 						Ammo selectedAmmo = ((GameObject)player.weapons [player.selectedWeapon]).GetComponent<Ammo> ();
 						if (selectedAmmo.infinite || selectedAmmo.shotsLeft >= 1) {
-								Fire (selectedAmmo);
+								StartCoroutine (Fire (selectedAmmo));
 						} else {
-								Fire (LookForAmmo ());
+								//if there are no bullets it will look for a weapon with bullets
+								LookForWeapon ();
+								StartCoroutine (Fire (selectedAmmo));
 						}
-
+						lastFire = Time.time + selectedAmmo.fireRate;
 				}
 						
 		}
 
-		void Fire (Ammo selectedAmmo)
+		IEnumerator Fire (Ammo selectedAmmo)
 		{
-				float playerPosY = player.transform.position.y + 0.7f;
-				Vector3 newVector = new Vector3 (player.transform.position.x, playerPosY);
-				Shot shot = (Shot)Instantiate (selectedAmmo.shot, newVector, Quaternion.identity);
-				shot.rigidbody2D.velocity = shot.shotSpeed * Vector3.up;
+				float spreadRange = selectedAmmo.bulletSpread / 2f;
+				for (int i = 0; i<selectedAmmo.bulletCount; i++) {
+						yield return new WaitForSeconds (0);
+//						float variance = Random.Range (-spreadRange, spreadRange);
+//						Quaternion rotation = Quaternion.AngleAxis (variance, transform.up);
+						Vector3 newVector = transform.position;
+//						newVector.x += i / selectedAmmo.bulletSpread * 10;
+						newVector.y = player.transform.position.y + player.GetComponent<BoxCollider2D> ().size.y;
+						Bullet bullet = (Bullet)Instantiate (selectedAmmo.bullet, newVector, Quaternion.identity);
+						bullet.rigidbody2D.velocity = bullet.bulletSpeed * Vector2.up;
+						audio.PlayOneShot (bullet.shootSound);
+				}
+			
+			
 				if (!selectedAmmo.infinite) {
 						selectedAmmo.shotsLeft--;
 				}
 				
+				
 		}
 
-		public Ammo LookForAmmo ()
+		public Ammo LookForWeapon ()
 		{
 				for (int i = 0; i<player.weapons.Count; i++) {
 						if (player.weapons [i]) {
@@ -51,7 +65,6 @@ public class PlayerShoot : MonoBehaviour
 								if (curAmmo.shotsLeft >= 1 || curAmmo.infinite) {
 										player.selectedWeapon = i;
 										return curAmmo;
-										break;
 								}
 						}
 				}

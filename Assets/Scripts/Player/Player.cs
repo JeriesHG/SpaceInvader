@@ -21,6 +21,7 @@ public class Player : MonoBehaviour
 		public float startingXPosition = 0;
 		public float startingYPosition = -5;
 		public int score = 0;
+		public AudioClip deathSound;
 		bool playerInvulnerability;
 
 		[HideInInspector]
@@ -63,6 +64,7 @@ public class Player : MonoBehaviour
 		{
 				gameObject.GetComponent<Animator> ().SetBool ("Destroy", true);
 				ImmobilizePlayer ();
+				audio.PlayOneShot (deathSound);
 				yield return new WaitForSeconds (1); 
 				if (destroyObject) {
 						Destroy (this.gameObject); 

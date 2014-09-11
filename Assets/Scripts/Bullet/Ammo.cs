@@ -4,10 +4,15 @@ using System.Collections;
 public class Ammo : MonoBehaviour
 {
 
-		public Shot shot;
+		public Bullet bullet;
 		public int clipSize;
 		public int shotsLeft;
 		public bool infinite;
+		public int bulletCount = 2;
+		public float bulletRandomness;
+		public float bulletSpread;
+		public float bulletSpacing;
+		public float fireRate;
 		
 
 		// Use this for initialization

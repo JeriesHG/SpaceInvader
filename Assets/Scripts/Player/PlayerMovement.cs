@@ -38,6 +38,9 @@ public class PlayerMovement : MonoBehaviour
 				if (Input.GetKeyUp (player.changeWeapon)) {
 						if (player.selectedWeapon + 1 < player.weapons.Count) {
 								player.selectedWeapon += 1;
+								if (player.weapons [player.selectedWeapon].GetComponent<Ammo> ().shotsLeft < 1) {
+										player.selectedWeapon -= 1;
+								}
 						} else {
 								player.selectedWeapon -= 1;
 						}

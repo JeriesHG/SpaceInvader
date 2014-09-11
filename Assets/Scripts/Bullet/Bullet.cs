@@ -1,12 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Shot : MonoBehaviour
+public class Bullet : MonoBehaviour
 {
 
 		public double damage = 1;
-		public int shotSpeed = 4;
-		public bool isEnemyShot = false;
+		public int bulletSpeed = 4;
+		public bool enemyBullet = false;
+		public AudioClip shootSound;
 
 		// Use this for initialization
 		void Start ()
@@ -20,7 +21,7 @@ public class Shot : MonoBehaviour
 				case "Shot":
 						break;
 				case "Enemy":
-						if (!isEnemyShot) {
+						if (!enemyBullet) {
 								Enemy enemy = entity.gameObject.GetComponent<Enemy> ();
 								if (enemy.Damaged (damage) && GameObject.Find ("Player")) {
 										GameObject.Find ("Player").GetComponent<Player> ().score += enemy.pointsWorth;
@@ -31,7 +32,7 @@ public class Shot : MonoBehaviour
 		
 						break;
 				case "Player":
-						if (isEnemyShot) {
+						if (enemyBullet) {
 
 								Player player = entity.gameObject.GetComponent<Player> ();
 								player.TookDamage (damage);
@@ -42,6 +43,12 @@ public class Shot : MonoBehaviour
 				if (entity.gameObject.tag.ToLower ().Contains ("wall")) {
 						Destroy (gameObject);
 				}
+		}
+
+		void OnBecameInvisible ()
+		{
+				// Destroy the bullet 
+				Destroy (gameObject);
 		}
 
 

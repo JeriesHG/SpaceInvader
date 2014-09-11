@@ -10,11 +10,8 @@ public class GameSetup : MonoBehaviour
 		public BoxCollider2D leftWall;
 		public BoxCollider2D rightWall;
 
-		Player player;
-
 		void Start ()
 		{
-				player = GameObject.Find ("Player").GetComponent<Player> ();
 		}
 
 		// Update is called once per frame
