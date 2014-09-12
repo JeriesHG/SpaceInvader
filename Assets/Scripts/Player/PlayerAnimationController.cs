@@ -25,7 +25,6 @@ public class PlayerAnimationController : MonoBehaviour {
 	
 	void RunAnimation ()
 	{
-		Debug.Log ("Asdasd");
 		if (Input.GetKey (player.moveLeft)) {
 			transform.localScale = new Vector3 (x, x, x);
 			playerAnim.SetFloat ("Move", 1.0f);
