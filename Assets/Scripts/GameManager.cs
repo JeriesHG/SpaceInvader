@@ -4,6 +4,9 @@ using System.Collections;
 public class GameManager : MonoBehaviour
 {
 		public int playerCurrentScore;
+		public AudioClip victoryMusic;
+		public AudioClip defeatMusic;
+		public Camera mainCamera;
 		Player player;
 		bool isGameFinished = false;
 
@@ -33,14 +36,19 @@ public class GameManager : MonoBehaviour
 		void checkGameState ()
 		{
 				if (GameObject.FindGameObjectsWithTag ("Enemy").Length <= 0 && !isGameFinished) {
+						mainCamera.GetComponent<AudioSource> ().Stop ();
+						mainCamera.GetComponent<AudioSource> ().PlayOneShot (victoryMusic);
 						GameObject go = Instantiate (Resources.Load ("Text/MessageText")) as GameObject;
 						go.GetComponent<GUIText> ().text = "Victory!";
 						isGameFinished = true;
 				}
 				if (!player && !isGameFinished) {
+						mainCamera.GetComponent<AudioSource> ().Stop ();
+						mainCamera.GetComponent<AudioSource> ().PlayOneShot (defeatMusic);
 						GameObject go = Instantiate (Resources.Load ("Text/MessageText")) as GameObject;
 						go.GetComponent<GUIText> ().text = "Defeat!";
 						isGameFinished = true;
+						
 				}
 		}
 

@@ -7,7 +7,7 @@ public class Bullet : MonoBehaviour
 		public double damage = 1;
 		public int bulletSpeed = 4;
 		public bool enemyBullet = false;
-		public AudioClip shootSound;
+		
 
 		// Use this for initialization
 		void Start ()

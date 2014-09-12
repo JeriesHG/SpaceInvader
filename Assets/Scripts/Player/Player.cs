@@ -32,8 +32,8 @@ public class Player : MonoBehaviour
 		void Awake ()
 		{
 				weapons = new List <GameObject> ();
-				weapons.Add ((GameObject)Instantiate (Resources.Load ("Ammo/Ammo_default") as GameObject));
-				weapons.Add ((GameObject)Instantiate (Resources.Load ("Ammo/Ammo_BasicShot1") as GameObject));
+				weapons.Add ((GameObject)Instantiate (Resources.Load ("Weapons/weapon_default") as GameObject));
+				weapons.Add ((GameObject)Instantiate (Resources.Load ("Weapons/weapon_basic1") as GameObject));
 		}
 
 		public void TookDamage (double damage)
@@ -65,7 +65,7 @@ public class Player : MonoBehaviour
 				gameObject.GetComponent<Animator> ().SetBool ("Destroy", true);
 				ImmobilizePlayer ();
 				audio.PlayOneShot (deathSound);
-				yield return new WaitForSeconds (1); 
+				yield return new WaitForSeconds (deathSound.length); 
 				if (destroyObject) {
 						Destroy (this.gameObject); 
 				} else {
