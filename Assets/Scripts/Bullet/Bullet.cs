@@ -18,7 +18,7 @@ public class Bullet : MonoBehaviour
 		void OnTriggerEnter2D (Collider2D entity)
 		{
 				switch (entity.gameObject.tag) {
-				case "Shot":
+				case "Bullet":
 						break;
 				case "Enemy":
 						if (!enemyBullet) {

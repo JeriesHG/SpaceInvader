@@ -6,6 +6,7 @@ public class PlayerShoot : MonoBehaviour
 
 		private Player player;
 		private float lastFire;
+		private Weapon selectedWeapon;
 
 		void Start ()
 		{
@@ -21,55 +22,74 @@ public class PlayerShoot : MonoBehaviour
 		void executeShoot ()
 		{
 				if (Input.GetKey (player.shoot) && Time.time > lastFire) {
-						Weapon selectedAmmo = ((GameObject)player.weapons [player.selectedWeapon]).GetComponent<Weapon> ();
-						if (selectedAmmo.infinite || selectedAmmo.shotsLeft >= 1) {
-								StartCoroutine (Fire (selectedAmmo));
+						selectedWeapon = ((GameObject)player.weapons [player.selectedWeapon]).GetComponent<Weapon> ();
+						if (selectedWeapon.infinite || selectedWeapon.shotsLeft >= 1) {
+								StartCoroutine (Fire ());
 						} else {
 								//if there are no bullets it will look for a weapon with bullets
 								LookForWeapon ();
-								StartCoroutine (Fire (selectedAmmo));
+								StartCoroutine (Fire ());
 						}
-						lastFire = Time.time + selectedAmmo.fireRate;
+						lastFire = Time.time + selectedWeapon.fireRate;
 				}
 						
 		}
 
-		IEnumerator Fire (Weapon selectedAmmo)
+		IEnumerator Fire ()
 		{
-				float spreadRange = selectedAmmo.bulletSpread / 2f;
-				for (int i = 0; i<selectedAmmo.bulletCount; i++) {
-						yield return new WaitForSeconds (0);
-//						float variance = Random.Range (-spreadRange, spreadRange);
-//						Quaternion rotation = Quaternion.AngleAxis (variance, transform.up);
-						Vector3 newVector = transform.position;
-//						newVector.x += i / selectedAmmo.bulletSpread * 10;
-						newVector.y = player.transform.position.y + player.GetComponent<BoxCollider2D> ().size.y;
-						Bullet bullet = (Bullet)Instantiate (selectedAmmo.bullet, newVector, Quaternion.identity);
-						bullet.rigidbody2D.velocity = bullet.bulletSpeed * Vector2.up;
-						audio.PlayOneShot (selectedAmmo.shootSound);
+				yield return new WaitForSeconds (0);
+				switch (selectedWeapon.weaponType) {
+				case Weapon.WeaponType.Default:
+						doDefaultWeapon ();
+						break;
+				case Weapon.WeaponType.Shotgun:
+						doShotgun ();
+						break;
 				}
-			
-			
-				if (!selectedAmmo.infinite) {
-						selectedAmmo.shotsLeft--;
+
+				audio.PlayOneShot (selectedWeapon.shootSound);
+				if (!selectedWeapon.infinite) {
+						selectedWeapon.shotsLeft--;
 				}
 				
 				
 		}
-
+		void doDefaultWeapon ()
+		{
+				for (int i = 0; i<selectedWeapon.bulletCount; i++) {
+						Vector3 newVector = transform.position;
+						newVector.y = player.transform.position.y + player.GetComponent<BoxCollider2D> ().size.y;
+						Bullet bullet = (Bullet)Instantiate (selectedWeapon.bullet, newVector, Quaternion.identity);
+						bullet.rigidbody2D.AddForce (bullet.transform.up * bullet.bulletSpeed);
+			
+				}
+		}
+		void doShotgun ()
+		{
+				float spreadRange = selectedWeapon.bulletSpread / 2f;
+				for (int i = 0; i<selectedWeapon.bulletCount; i++) {
+						Quaternion target = Quaternion.identity;
+						target.eulerAngles = Random.insideUnitSphere * 10;
+						Debug.Log (target.eulerAngles);
+						Vector3 newVector = transform.position;
+						newVector.y = player.transform.position.y + player.GetComponent<BoxCollider2D> ().size.y;
+						Bullet bullet = (Bullet)Instantiate (selectedWeapon.bullet, newVector, target);
+						bullet.rigidbody2D.AddForce (bullet.transform.forward * bullet.bulletSpeed);
+				}
+		}
+	
 		public Weapon LookForWeapon ()
 		{
 				for (int i = 0; i<player.weapons.Count; i++) {
 						if (player.weapons [i]) {
-								Weapon curAmmo = player.weapons [i].GetComponent<Weapon> ();
-								if (curAmmo.shotsLeft >= 1 || curAmmo.infinite) {
+								Weapon curWeapon = player.weapons [i].GetComponent<Weapon> ();
+								if (curWeapon.shotsLeft >= 1 || curWeapon.infinite) {
 										player.selectedWeapon = i;
-										return curAmmo;
+										return curWeapon;
 								}
 						}
 				}
 				return null;
 		}
-
-
+	
 }

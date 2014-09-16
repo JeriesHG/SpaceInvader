@@ -4,11 +4,19 @@ using System.Collections;
 public class Weapon : MonoBehaviour
 {
 
+		public enum WeaponType
+		{
+				Default,
+				Shotgun
+		}
+		;
+
+		public WeaponType weaponType;
 		public Bullet bullet;
-		public int clipSize;
-		public int shotsLeft;
+		public float clipSize;
+		public float shotsLeft;
 		public bool infinite;
-		public int bulletCount = 2;
+		public float bulletCount = 2;
 		public float bulletRandomness;
 		public float bulletSpread;
 		public float bulletSpacing;

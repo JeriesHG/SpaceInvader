@@ -32,7 +32,7 @@ public class Player : MonoBehaviour
 		void Awake ()
 		{
 				weapons = new List <GameObject> ();
-				weapons.Add ((GameObject)Instantiate (Resources.Load ("Weapons/weapon_default") as GameObject));
+//				weapons.Add ((GameObject)Instantiate (Resources.Load ("Weapons/weapon_default") as GameObject));
 				weapons.Add ((GameObject)Instantiate (Resources.Load ("Weapons/weapon_basic1") as GameObject));
 		}
 
