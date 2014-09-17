@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerCharacterController : MonoBehaviour
 {
 
 		private Player player;
@@ -10,7 +10,7 @@ public class PlayerMovement : MonoBehaviour
 		{
 				player = GameObject.Find ("Player").GetComponent<Player> () as Player;
 		}
-
+	
 		void FixedUpdate ()
 		{
 				Move ();
@@ -29,12 +29,12 @@ public class PlayerMovement : MonoBehaviour
 				if (Input.GetKey (player.moveUp) || Input.GetKey (player.moveDown)) {
 						transform.Translate (0, Input.GetAxisRaw ("Vertical") * movementSpeed * Time.deltaTime, 0);
 				}
-
+		
 		}
-
+	
 		void changeWeapon ()
 		{
-				
+		
 				if (Input.GetKeyUp (player.changeWeapon)) {
 						if (player.selectedWeapon + 1 < player.weapons.Count) {
 								player.selectedWeapon += 1;
@@ -46,6 +46,4 @@ public class PlayerMovement : MonoBehaviour
 						}
 				}
 		}
-
-
 }

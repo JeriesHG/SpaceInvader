@@ -53,7 +53,7 @@
      <Compile Include="Assets\Scripts\GameSetup.cs" />
      <Compile Include="Assets\Scripts\Player\Player.cs" />
      <Compile Include="Assets\Scripts\Player\PlayerAnimationController.cs" />
-     <Compile Include="Assets\Scripts\Player\PlayerMovement.cs" />
+     <Compile Include="Assets\Scripts\Player\PlayerCharacterController.cs" />
      <Compile Include="Assets\Scripts\Player\PlayerShoot.cs" />
      <Compile Include="Assets\Scripts\Player\PlayerTouchControl.cs" />
      <Compile Include="Assets\Scripts\Touch\TouchButtonController.cs" />

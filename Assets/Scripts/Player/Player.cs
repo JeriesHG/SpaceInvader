@@ -32,7 +32,7 @@ public class Player : MonoBehaviour
 		void Awake ()
 		{
 				weapons = new List <GameObject> ();
-//				weapons.Add ((GameObject)Instantiate (Resources.Load ("Weapons/weapon_default") as GameObject));
+				weapons.Add ((GameObject)Instantiate (Resources.Load ("Weapons/weapon_default") as GameObject));
 				weapons.Add ((GameObject)Instantiate (Resources.Load ("Weapons/weapon_basic1") as GameObject));
 		}
 
@@ -76,7 +76,7 @@ public class Player : MonoBehaviour
 
 		void ImmobilizePlayer ()
 		{
-				Destroy (gameObject.GetComponent<PlayerMovement> ());
+				Destroy (gameObject.GetComponent<PlayerCharacterController> ());
 				Destroy (gameObject.GetComponent<PlayerShoot> ());
 		}
 
@@ -84,7 +84,7 @@ public class Player : MonoBehaviour
 		{
 				gameObject.GetComponent<Animator> ().SetBool ("Invulnerable", true);
 				this.transform.position = new Vector3 (startingXPosition, startingYPosition, 0);
-				gameObject.AddComponent ("PlayerMovement");
+				gameObject.AddComponent ("PlayerCharacterController");
 				gameObject.AddComponent ("PlayerShoot");
 				yield return new WaitForSeconds (2);
 				gameObject.GetComponent<Animator> ().SetBool ("Invulnerable", false);

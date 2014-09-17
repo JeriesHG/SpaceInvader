@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Enemy : MonoBehaviour
 {
@@ -8,7 +9,7 @@ public class Enemy : MonoBehaviour
 		public double hitpoints = 5f;
 		public int pointsWorth = 0;
 		public float moveSpeed = 2f;
-		public GameObject[] shots;
+		public List<GameObject> weapons;
 		public int defaultAmmo = 0;
 		public float startingXPosition = -6f;
 		public float startingYPosition = 5f;
@@ -17,9 +18,16 @@ public class Enemy : MonoBehaviour
 		float moveDirection = 1.0f;
 		Vector3 moveAmount;
 
+		private Weapon currentWeapon;
+		[HideInInspector]
+		public int
+				selectedWeapon = 0;
+
 		// Use this for initialization
 		void Start ()
 		{
+				weapons = new List <GameObject> ();
+				weapons.Add ((GameObject)Instantiate (Resources.Load ("Weapons/weapon_enemyBasic1") as GameObject));
 				InvokeRepeating ("EnemyShoot", Random.Range (0f, 1f), Random.Range (0.5f, maxShotInterval));
 		}
 	
@@ -28,8 +36,6 @@ public class Enemy : MonoBehaviour
 		{
 				moveAmount.x = moveDirection * moveSpeed * Time.deltaTime;
 				transform.Translate (moveAmount);
-
-
 		}
 
 		void OnCollisionEnter2D (Collision2D Entity)
@@ -69,10 +75,15 @@ public class Enemy : MonoBehaviour
 
 		void EnemyShoot ()
 		{
-				float playerPosY = gameObject.transform.position.y - 0.5f;
-				GameObject shot = (GameObject)Instantiate (gameObject.GetComponent<Enemy> ().shots [defaultAmmo], new Vector3 (gameObject.transform.position.x, playerPosY), Quaternion.identity);
-				Bullet bullet = shot.GetComponent<Bullet> ();
-				bullet.enemyBullet = true;
-				shot.rigidbody2D.velocity = bullet.bulletSpeed * Vector3.down;
+				currentWeapon = ((GameObject)weapons [selectedWeapon]).GetComponent<Weapon> ();
+				for (int i = 0; i<currentWeapon.bulletCount; i++) {
+						Quaternion target = Quaternion.identity;
+						target.eulerAngles = new Vector3 (currentWeapon.bullet.bulletSpeed, currentWeapon.bulletSpread * (i - 1.8f));
+						Vector3 newVector = transform.position;
+						newVector.y = transform.position.y - GetComponent<BoxCollider2D> ().size.y;
+						Bullet bullet = (Bullet)Instantiate (currentWeapon.bullet, newVector, target);
+						bullet.enemyBullet = true;
+						bullet.rigidbody2D.AddForce (bullet.transform.forward * bullet.bulletSpeed);
+				}
 		}
 }

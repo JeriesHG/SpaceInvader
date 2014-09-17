@@ -66,11 +66,9 @@ public class PlayerShoot : MonoBehaviour
 		}
 		void doShotgun ()
 		{
-				float spreadRange = selectedWeapon.bulletSpread / 2f;
 				for (int i = 0; i<selectedWeapon.bulletCount; i++) {
 						Quaternion target = Quaternion.identity;
-						target.eulerAngles = Random.insideUnitSphere * 10;
-						Debug.Log (target.eulerAngles);
+						target.eulerAngles = new Vector3 (-selectedWeapon.bullet.bulletSpeed, selectedWeapon.bulletSpread * (i - 1.8f));
 						Vector3 newVector = transform.position;
 						newVector.y = player.transform.position.y + player.GetComponent<BoxCollider2D> ().size.y;
 						Bullet bullet = (Bullet)Instantiate (selectedWeapon.bullet, newVector, target);
@@ -91,5 +89,6 @@ public class PlayerShoot : MonoBehaviour
 				}
 				return null;
 		}
+
 	
 }

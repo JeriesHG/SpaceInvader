@@ -17,7 +17,7 @@ public class Weapon : MonoBehaviour
 		public float shotsLeft;
 		public bool infinite;
 		public float bulletCount = 2;
-		public float bulletRandomness;
+		public float bulletRandomnes;
 		public float bulletSpread;
 		public float bulletSpacing;
 		public float fireRate;
