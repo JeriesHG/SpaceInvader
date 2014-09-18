@@ -13,8 +13,8 @@ public class GameManager : MonoBehaviour
 		void Start ()
 		{
 				player = GameObject.Find ("Player").GetComponent<Player> ();
-				createRandomEnemies ();
-				InvokeRepeating ("createRandomEnemies", 3f, Random.Range (5, 15));
+//				createRandomEnemies ();
+//				InvokeRepeating ("createRandomEnemies", 3f, Random.Range (5, 15));
 		}
 	
 		// Update is called once per frame

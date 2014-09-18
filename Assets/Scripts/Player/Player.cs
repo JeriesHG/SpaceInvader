@@ -33,7 +33,7 @@ public class Player : MonoBehaviour
 		{
 				weapons = new List <GameObject> ();
 				weapons.Add ((GameObject)Instantiate (Resources.Load ("Weapons/weapon_default") as GameObject));
-				weapons.Add ((GameObject)Instantiate (Resources.Load ("Weapons/weapon_basic1") as GameObject));
+//				weapons.Add ((GameObject)Instantiate (Resources.Load ("Weapons/weapon_shotgun") as GameObject));
 		}
 
 		public void TookDamage (double damage)
